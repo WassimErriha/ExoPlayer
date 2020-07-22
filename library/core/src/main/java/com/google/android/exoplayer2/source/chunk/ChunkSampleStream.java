@@ -724,7 +724,7 @@ public class ChunkSampleStream<T extends ChunkSource> implements SampleStream, S
    *     the search (i.e. the chunk at {@code minChunkIndex}, or at index 0 if {@code minChunkIndex}
    *     is -1.
    */
-  private int primarySampleIndexToMediaChunkIndex(int primarySampleIndex, int minChunkIndex) {
+  public int primarySampleIndexToMediaChunkIndex(int primarySampleIndex, int minChunkIndex) {
     for (int i = minChunkIndex + 1; i < mediaChunks.size(); i++) {
       if (mediaChunks.get(i).getFirstSampleIndex(0) > primarySampleIndex) {
         return i - 1;
@@ -744,7 +744,7 @@ public class ChunkSampleStream<T extends ChunkSource> implements SampleStream, S
    * @param chunkIndex The index of the first chunk to discard.
    * @return The chunk at given index.
    */
-  private BaseMediaChunk discardUpstreamMediaChunksFromIndex(int chunkIndex) {
+  public BaseMediaChunk discardUpstreamMediaChunksFromIndex(int chunkIndex) {
     BaseMediaChunk firstRemovedChunk = mediaChunks.get(chunkIndex);
     Util.removeRange(mediaChunks, /* fromIndex= */ chunkIndex, /* toIndex= */ mediaChunks.size());
     nextNotifyPrimaryFormatMediaChunkIndex =
@@ -821,6 +821,11 @@ public class ChunkSampleStream<T extends ChunkSource> implements SampleStream, S
         notifiedDownstreamFormat = true;
       }
     }
+  }
+
+  // NOTE ADDED GETTER METHOD
+  public SampleQueue getPrimarySampleQueue() {
+    return this.primarySampleQueue;
   }
 
 }

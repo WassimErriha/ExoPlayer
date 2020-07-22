@@ -81,6 +81,8 @@ import java.util.regex.Pattern;
 /** A DASH {@link MediaSource}. */
 public final class DashMediaSource extends BaseMediaSource {
 
+  // NOTE ADDED MEMBER VARIABLE
+  private DashMediaPeriod dashMediaPeriod;
   static {
     ExoPlayerLibraryInfo.registerModule("goog.exo.dash");
   }
@@ -715,6 +717,8 @@ public final class DashMediaSource extends BaseMediaSource {
             compositeSequenceableLoaderFactory,
             playerEmsgCallback);
     periodsById.put(mediaPeriod.id, mediaPeriod);
+    dashMediaPeriod = mediaPeriod;
+
     return mediaPeriod;
   }
 
@@ -1127,7 +1131,7 @@ public final class DashMediaSource extends BaseMediaSource {
     handler.postDelayed(refreshManifestRunnable, delayUntilNextLoadMs);
   }
 
-  private void startLoadingManifest() {
+  public void startLoadingManifest() {
     handler.removeCallbacks(refreshManifestRunnable);
     if (loader.hasFatalError()) {
       return;
@@ -1508,5 +1512,11 @@ public final class DashMediaSource extends BaseMediaSource {
         throw manifestFatalError;
       }
     }
+  }
+
+  // NOTE ADDED METHOD
+
+  public DashMediaPeriod getMediaPeriod() {
+    return dashMediaPeriod;
   }
 }

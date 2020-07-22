@@ -67,7 +67,7 @@ import java.util.regex.Pattern;
 import org.checkerframework.checker.nullness.compatqual.NullableType;
 
 /** A DASH {@link MediaPeriod}. */
-/* package */ final class DashMediaPeriod
+/* package */ public final class DashMediaPeriod
     implements MediaPeriod,
         SequenceableLoader.Callback<ChunkSampleStream<DashChunkSource>>,
         ChunkSampleStream.ReleaseCallback<DashChunkSource> {
@@ -1002,6 +1002,38 @@ import org.checkerframework.checker.nullness.compatqual.NullableType;
       this.embeddedClosedCaptionTrackGroupIndex = embeddedClosedCaptionTrackGroupIndex;
       this.eventStreamGroupIndex = eventStreamGroupIndex;
     }
+  }
+
+
+
+
+  // NOTE added method not
+  public void clearFrontBuffer(long a,long b, long c) {
+    //int sampleWriteIndex = sampleStreams[0].getPrimarySampleQueue().getWriteIndex();
+    //int ChunkWriteIndex = sampleStreams[0].primarySampleIndexToMediaChunkIndex(sampleWriteIndex,0);
+    ChunkSampleStream<DashChunkSource> videoSampleStream = sampleStreams[0];
+    int sampleReadIndex = videoSampleStream.getPrimarySampleQueue().getReadIndex();
+    int chunkReadIndex = videoSampleStream.primarySampleIndexToMediaChunkIndex(sampleReadIndex,0);
+    videoSampleStream.discardUpstreamMediaChunksFromIndex(chunkReadIndex + 1);
+    videoSampleStream.getPrimarySampleQueue().splice();
+    long newBufferedPosition = videoSampleStream.getBufferedPositionUs();
+    videoSampleStream.continueLoading(newBufferedPosition);
+    //sampleStreams[0].discardUpstreamMediaChunksFromIndex(chunkIndex);
+    //sampleStreams[0].continueLoading(currentPosition);
+  }
+//  public void clearFrontBuffer() {
+//    // NOTE Old method from previous modual
+//    //SampleQueue sampleQueues = sampleStreams[0].getPrimarySampleQueue();
+//    //SampleQueue sampleQueues2 = sampleStreams[1].getSampleQueue();
+//    // get current position and add number of chunks to retain
+//    //int currentReadIndex = sampleQueues.getReadIndex();
+//    //sampleQueues.discardUpstreamSamples(currentReadIndex);
+//    // clear upstream media
+//  }
+
+private DashMediaPeriod dashMediaPeriod;
+  public DashMediaPeriod getMediaPeriod() {
+    return dashMediaPeriod;
   }
 
 }
