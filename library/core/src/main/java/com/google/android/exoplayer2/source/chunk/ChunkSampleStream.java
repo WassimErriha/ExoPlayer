@@ -79,7 +79,7 @@ public class ChunkSampleStream<T extends ChunkSource> implements SampleStream, S
   private final MediaSourceEventListener.EventDispatcher mediaSourceEventDispatcher;
   private final LoadErrorHandlingPolicy loadErrorHandlingPolicy;
   private final Loader loader;
-  private final ChunkHolder nextChunkHolder;
+  public final ChunkHolder nextChunkHolder;
   private final ArrayList<BaseMediaChunk> mediaChunks;
   private final List<BaseMediaChunk> readOnlyMediaChunks;
   private final SampleQueue primarySampleQueue;
@@ -89,7 +89,7 @@ public class ChunkSampleStream<T extends ChunkSource> implements SampleStream, S
   @Nullable private Chunk loadingChunk;
   private @MonotonicNonNull Format primaryDownstreamTrackFormat;
   @Nullable private ReleaseCallback<T> releaseCallback;
-  private long pendingResetPositionUs;
+  public long pendingResetPositionUs;
   private long lastSeekPositionUs;
   private int nextNotifyPrimaryFormatMediaChunkIndex;
   @Nullable private BaseMediaChunk canceledMediaChunk;

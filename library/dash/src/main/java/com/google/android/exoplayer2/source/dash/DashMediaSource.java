@@ -84,6 +84,14 @@ import java.util.regex.Pattern;
 /** A DASH {@link MediaSource}. */
 public final class DashMediaSource extends BaseMediaSource {
 
+<<<<<<< HEAD
+||||||| parent of 6cb9387f5... - DashMediaSource.java
+  // NOTE ADDED MEMBER VARIABLE
+  private DashMediaPeriod dashMediaPeriod;
+=======
+  // NOTE ADDED MEMBER VARIABLE
+  public  DashMediaPeriod dashMediaPeriod;
+>>>>>>> 6cb9387f5... - DashMediaSource.java
   static {
     ExoPlayerLibraryInfo.registerModule("goog.exo.dash");
   }
