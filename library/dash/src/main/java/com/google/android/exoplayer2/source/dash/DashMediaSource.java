@@ -82,7 +82,7 @@ import java.util.regex.Pattern;
 public final class DashMediaSource extends BaseMediaSource {
 
   // NOTE ADDED MEMBER VARIABLE
-  private DashMediaPeriod dashMediaPeriod;
+  public  DashMediaPeriod dashMediaPeriod;
   static {
     ExoPlayerLibraryInfo.registerModule("goog.exo.dash");
   }
