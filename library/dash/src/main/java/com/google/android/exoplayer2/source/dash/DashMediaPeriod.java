@@ -15,14 +15,8 @@
  */
 package com.google.android.exoplayer2.source.dash;
 
-<<<<<<< HEAD
 import static java.lang.Math.min;
-
-||||||| parent of 6cb9387f5... - DashMediaSource.java
-=======
-import android.os.Message;
 import android.util.Log;
->>>>>>> 6cb9387f5... - DashMediaSource.java
 import android.util.Pair;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
@@ -75,7 +69,7 @@ import java.util.regex.Pattern;
 import org.checkerframework.checker.nullness.compatqual.NullableType;
 
 /** A DASH {@link MediaPeriod}. */
-/* package */ final class DashMediaPeriod
+/* package */ public final class DashMediaPeriod
     implements MediaPeriod,
         SequenceableLoader.Callback<ChunkSampleStream<DashChunkSource>>,
         ChunkSampleStream.ReleaseCallback<DashChunkSource> {
@@ -111,13 +105,8 @@ import org.checkerframework.checker.nullness.compatqual.NullableType;
   public DashManifest manifest;
   private int periodIndex;
   private List<EventStream> eventStreams;
-<<<<<<< HEAD
-||||||| parent of 6cb9387f5... - DashMediaSource.java
-  private boolean notifiedReadingStarted;
-=======
   private boolean notifiedReadingStarted;
   public DashChunkSource chunkSource;
->>>>>>> 6cb9387f5... - DashMediaSource.java
 
   public DashMediaPeriod(
       int id,
@@ -1008,25 +997,22 @@ import org.checkerframework.checker.nullness.compatqual.NullableType;
     }
   }
 
-<<<<<<< HEAD
-||||||| parent of 6cb9387f5... - DashMediaSource.java
-
 
 
   // NOTE added method not
-  public void clearFrontBuffer(long a,long b, long c) {
-    //int sampleWriteIndex = sampleStreams[0].getPrimarySampleQueue().getWriteIndex();
-    //int ChunkWriteIndex = sampleStreams[0].primarySampleIndexToMediaChunkIndex(sampleWriteIndex,0);
-    ChunkSampleStream<DashChunkSource> videoSampleStream = sampleStreams[0];
-    int sampleReadIndex = videoSampleStream.getPrimarySampleQueue().getReadIndex();
-    int chunkReadIndex = videoSampleStream.primarySampleIndexToMediaChunkIndex(sampleReadIndex,0);
-    videoSampleStream.discardUpstreamMediaChunksFromIndex(chunkReadIndex + 1);
-    videoSampleStream.getPrimarySampleQueue().splice();
-    long newBufferedPosition = videoSampleStream.getBufferedPositionUs();
-    videoSampleStream.continueLoading(newBufferedPosition);
-    //sampleStreams[0].discardUpstreamMediaChunksFromIndex(chunkIndex);
-    //sampleStreams[0].continueLoading(currentPosition);
-  }
+//  public void clearFrontBuffer(long a,long b, long c) {
+//    //int sampleWriteIndex = sampleStreams[0].getPrimarySampleQueue().getWriteIndex();
+//    //int ChunkWriteIndex = sampleStreams[0].primarySampleIndexToMediaChunkIndex(sampleWriteIndex,0);
+//    ChunkSampleStream<DashChunkSource> videoSampleStream = sampleStreams[0];
+//    int sampleReadIndex = videoSampleStream.getPrimarySampleQueue().getReadIndex();
+//    int chunkReadIndex = videoSampleStream.primarySampleIndexToMediaChunkIndex(sampleReadIndex,0);
+//    videoSampleStream.discardUpstreamMediaChunksFromIndex(chunkReadIndex + 1);
+//    videoSampleStream.getPrimarySampleQueue().splice();
+//    long newBufferedPosition = videoSampleStream.getBufferedPositionUs();
+//    videoSampleStream.continueLoading(newBufferedPosition);
+//    //sampleStreams[0].discardUpstreamMediaChunksFromIndex(chunkIndex);
+//    //sampleStreams[0].continueLoading(currentPosition);
+//  }
 //  public void clearFrontBuffer() {
 //    // NOTE Old method from previous modual
 //    //SampleQueue sampleQueues = sampleStreams[0].getPrimarySampleQueue();
@@ -1037,33 +1023,25 @@ import org.checkerframework.checker.nullness.compatqual.NullableType;
 //    // clear upstream media
 //  }
 
-private DashMediaPeriod dashMediaPeriod;
-  public DashMediaPeriod getMediaPeriod() {
-    return dashMediaPeriod;
-  }
-
-=======
-
 
   // NOTE added method
-  public void clearFrontBuffer(long a,long b, long c) {
-    //int sampleWriteIndex = sampleStreams[0].getPrimarySampleQueue().getWriteIndex();
-    //int ChunkWriteIndex = sampleStreams[0].primarySampleIndexToMediaChunkIndex(sampleWriteIndex,0);
-    ChunkSampleStream<DashChunkSource> videoSampleStream = sampleStreams[0];
-    long oldBufferedPosition = videoSampleStream.getBufferedPositionUs();
-    int sampleReadIndex = videoSampleStream.getPrimarySampleQueue().getReadIndex();
-    int chunkReadIndex = videoSampleStream.primarySampleIndexToMediaChunkIndex(sampleReadIndex,-1);
-    if (chunkReadIndex < 0) return;
-//    videoSampleStream.discardUpstreamMediaChunksFromIndex(chunkReadIndex + 1);
-//    videoSampleStream.getPrimarySampleQueue().splice();
-    long newBufferedPosition = videoSampleStream.getBufferedPositionUs();
-    long newBufferedPositionMS = TimeUnit.MILLISECONDS.convert(newBufferedPosition, TimeUnit.MICROSECONDS);
-    long oldBufferedPositionMS = TimeUnit.MILLISECONDS.convert(oldBufferedPosition, TimeUnit.MICROSECONDS);
-    //boolean isStreamLoading = videoSampleStream.continueLoading(videoSampleStream.getNextLoadPositionUs());
-    boolean isStreamLoading = continueLoading(videoSampleStream.getNextLoadPositionUs());
-    Log.e("TEST"," isStreamLoading " + isStreamLoading);
-    Log.e("DashMediaPeriod"," old buffered position in milliseconds " + oldBufferedPositionMS);
-    Log.e("DashMediaPeriod"," new buffered position in milliseconds " + newBufferedPositionMS);
-  }
->>>>>>> 6cb9387f5... - DashMediaSource.java
+//  public void clearFrontBuffer(long a,long b, long c) {
+//    //int sampleWriteIndex = sampleStreams[0].getPrimarySampleQueue().getWriteIndex();
+//    //int ChunkWriteIndex = sampleStreams[0].primarySampleIndexToMediaChunkIndex(sampleWriteIndex,0);
+//    ChunkSampleStream<DashChunkSource> videoSampleStream = sampleStreams[0];
+//    long oldBufferedPosition = videoSampleStream.getBufferedPositionUs();
+//    int sampleReadIndex = videoSampleStream.getPrimarySampleQueue().getReadIndex();
+//    int chunkReadIndex = videoSampleStream.primarySampleIndexToMediaChunkIndex(sampleReadIndex,-1);
+//    if (chunkReadIndex < 0) return;
+////    videoSampleStream.discardUpstreamMediaChunksFromIndex(chunkReadIndex + 1);
+////    videoSampleStream.getPrimarySampleQueue().splice();
+//    long newBufferedPosition = videoSampleStream.getBufferedPositionUs();
+//    long newBufferedPositionMS = TimeUnit.MILLISECONDS.convert(newBufferedPosition, TimeUnit.MICROSECONDS);
+//    long oldBufferedPositionMS = TimeUnit.MILLISECONDS.convert(oldBufferedPosition, TimeUnit.MICROSECONDS);
+//    //boolean isStreamLoading = videoSampleStream.continueLoading(videoSampleStream.getNextLoadPositionUs());
+//    boolean isStreamLoading = continueLoading(videoSampleStream.getNextLoadPositionUs());
+//    Log.e("TEST"," isStreamLoading " + isStreamLoading);
+//    Log.e("DashMediaPeriod"," old buffered position in milliseconds " + oldBufferedPositionMS);
+//    Log.e("DashMediaPeriod"," new buffered position in milliseconds " + newBufferedPositionMS);
+//  }
 }

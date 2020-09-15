@@ -56,7 +56,11 @@ import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 public class ChunkSampleStream<T extends ChunkSource> implements SampleStream, SequenceableLoader,
     Loader.Callback<Chunk>, Loader.ReleaseCallback {
 
-  /** A callback to be notified when a sample stream has finished being released. */
+  public SampleQueue getPrimarySampleQueue() {
+    return this.primarySampleQueue;
+  }
+
+    /** A callback to be notified when a sample stream has finished being released. */
   public interface ReleaseCallback<T extends ChunkSource> {
 
     /**
