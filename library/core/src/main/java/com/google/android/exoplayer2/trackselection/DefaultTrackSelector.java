@@ -1678,19 +1678,19 @@ public class DefaultTrackSelector extends MappingTrackSelector {
         new TrackSelection.Definition[rendererCount];
 
     boolean seenVideoRendererWithMappedTracks = false;
-    boolean selectedVideoTracks = false;
+    //boolean selectedVideoTracks = false;
     for (int i = 0; i < rendererCount; i++) {
       if (C.TRACK_TYPE_VIDEO == mappedTrackInfo.getRendererType(i)) {
-        if (!selectedVideoTracks) {
+        //if (!selectedVideoTracks) {
           definitions[i] =
               selectVideoTrack(
-                  mappedTrackInfo.getTrackGroups(i),
-                  rendererFormatSupports[i],
-                  rendererMixedMimeTypeAdaptationSupports[i],
+                  mappedTrackInfo.getTrackGroups(0),
+                  rendererFormatSupports[0],
+                  rendererMixedMimeTypeAdaptationSupports[0],
                   params,
                   /* enableAdaptiveTrackSelection= */ true);
-          selectedVideoTracks = definitions[i] != null;
-        }
+          //selectedVideoTracks = definitions[i] != null;
+       // }
         seenVideoRendererWithMappedTracks |= mappedTrackInfo.getTrackGroups(i).length > 0;
       }
     }

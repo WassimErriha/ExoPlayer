@@ -60,6 +60,22 @@ public class ChunkSampleStream<T extends ChunkSource> implements SampleStream, S
     return this.primarySampleQueue;
   }
 
+
+  PlayerChunkLoadListener playerChunkLoadListener;
+  public interface PlayerChunkLoadListener{
+    void onChunkLoadCompleted();
+    void onChunkLoadError();
+    void onChunkLoadCanceled();
+  }
+
+
+  public void addChunkLoadListener(PlayerChunkLoadListener playerChunkLoadListener){
+    this.playerChunkLoadListener = playerChunkLoadListener;
+
+  }  public void removeChunkLoadListener(){
+    this.playerChunkLoadListener = null;
+  }
+
     /** A callback to be notified when a sample stream has finished being released. */
   public interface ReleaseCallback<T extends ChunkSource> {
 
@@ -425,6 +441,7 @@ public class ChunkSampleStream<T extends ChunkSource> implements SampleStream, S
 
   @Override
   public void onLoadCompleted(Chunk loadable, long elapsedRealtimeMs, long loadDurationMs) {
+    if (playerChunkLoadListener != null) playerChunkLoadListener.onChunkLoadCompleted();
     loadingChunk = null;
     chunkSource.onChunkLoadCompleted(loadable);
     LoadEventInfo loadEventInfo =
@@ -452,6 +469,7 @@ public class ChunkSampleStream<T extends ChunkSource> implements SampleStream, S
   @Override
   public void onLoadCanceled(
       Chunk loadable, long elapsedRealtimeMs, long loadDurationMs, boolean released) {
+     if (playerChunkLoadListener != null) playerChunkLoadListener.onChunkLoadCanceled();
     loadingChunk = null;
     canceledMediaChunk = null;
     LoadEventInfo loadEventInfo =
@@ -494,6 +512,7 @@ public class ChunkSampleStream<T extends ChunkSource> implements SampleStream, S
       long loadDurationMs,
       IOException error,
       int errorCount) {
+    if (playerChunkLoadListener != null)  playerChunkLoadListener.onChunkLoadError();
     long bytesLoaded = loadable.bytesLoaded();
     boolean isMediaChunk = isMediaChunk(loadable);
     int lastChunkIndex = mediaChunks.size() - 1;
@@ -898,6 +917,10 @@ public class ChunkSampleStream<T extends ChunkSource> implements SampleStream, S
         notifiedDownstreamFormat = true;
       }
     }
+  }
+
+  public Loader.Callback<Chunk> getChunkLoadCallback(){
+    return this;
   }
 
 }
